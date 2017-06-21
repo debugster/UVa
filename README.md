@@ -1,7 +1,3 @@
-# UVa
-# UVa Solutions
-
-
 # All UVa OJ AC Source Codes
 
 
