@@ -2,7 +2,7 @@
 # UVa Solutions
 
 
-[All UVa OJ AC Source Codes]
+# All UVa OJ AC Source Codes
 
 
 # UVa Username  : debugster
