@@ -1,3 +1,7 @@
+/*
+Algorithm + Guide : http://debugsters.blogspot.com/2017/07/UVa-375.html
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
