@@ -43,11 +43,13 @@ int NOD(int x)
 
     limit = sqrt(x);
     for (n = 2; n <= limit; n++) {
-        if (x % n == 0 && x / n == n) {
-            total++;
-        }
-        else if (x % n == 0) {
-            total += 2;
+        if (x % n == 0) {
+            if (x / n == n) {
+                total++;
+            }
+            else {
+                total += 2;
+            }
         }
     }
     return total;
