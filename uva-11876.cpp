@@ -1,12 +1,13 @@
+/// RT : 0.070s
+
 #include <bits/stdc++.h>
 
 using namespace std;
 
 const int MAX = 64726;
-vector<int>DATA(MAX, 0);
+int DATA[MAX];
 
 int NOD(int x);
-int upperBound(int value);
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
     for (t = 1; t <= test; t++) {
         scanf("%d%d", &a, &b);
 
-        n = upperBound(b) - upperBound(a - 1);
+        n = upper_bound(DATA, DATA + MAX, b) - upper_bound(DATA, DATA + MAX, a - 1);
 
         printf("Case %d: %d\n", t, n);
     }
@@ -34,55 +35,35 @@ int main()
 
 int NOD(int x)
 {
-    int n, limit, total = 2;
+    int i, Limit, countD, total = 1;
 
-    if (x == 1) {
-        total = 1;
-        return total;
-    }
+    Limit = sqrt(x);
 
-    limit = sqrt(x);
-    for (n = 2; n <= limit; n++) {
-        if (x % n == 0) {
-            if (x / n == n) {
-                total++;
-            }
-            else {
-                total += 2;
-            }
-        }
-    }
-    return total;
-}
+    for (i = 2; i <= Limit;) {
 
-int upperBound(int value)
-{
-    int begI, midI, endI;
-
-    begI = 0;
-    endI = MAX - 1;
-    midI = (begI + endI) / 2;
-
-    while (begI != endI - 1) {
-
-        if (value < DATA[0]) {
-            midI = -1;
-            break;
-        }
-        else if (value >= DATA[MAX - 1]) {
-            midI = MAX - 1;
+        if (i > x) {
             break;
         }
 
-        if (DATA[midI] <= value) {
-            begI = midI;
+        if (x % i == 0) {
+            countD = 1;
+            while (x % i == 0) {
+                countD++;
+                x /= i;
+            }
+            total *= countD;
+        }
+
+        if (i == 2) {
+            i++;
         }
         else {
-            endI = midI;
+            i += 2;
         }
-
-        midI = (begI + endI) / 2;
+    }
+    if (x > 1) {
+        total *= 2;
     }
 
-    return (midI + 1);
+    return total;
 }
