@@ -9,7 +9,7 @@ int main()
     freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout);
 
-    unsigned long long x, i, sum;
+    unsigned long long x, i;
 
     DATA[1] = 1;
     for (i = 2; i <= 50000; i++) {
