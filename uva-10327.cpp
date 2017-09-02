@@ -7,7 +7,7 @@ int main()
     freopen("in.txt","r",stdin);
     freopen("out.txt","w", stdout);
 
-    int n, i, temp, minCount, data[1000];
+    int n, i, temp, minCount, swaps, data[1000];
     bool sorted;
 
     while (scanf("%d", &n) != EOF) {
@@ -18,27 +18,21 @@ int main()
 
         minCount = 0;
         while (true) {
-            /// Check if already sorted
-            sorted = true;
+
+            swaps = 0;
             for (i = 0; i < n - 1; i++) {
                 if (data[i] > data[i + 1]) {
-                    sorted = false;
-                    break;
+
+                    temp = data[i];
+                    data[i] = data[i + 1];
+                    data[i + 1] = temp;
+
+                    swaps++;
                 }
             }
 
-            if (!sorted) {
-                for (i = 0; i < n - 1; i++) {
-                    if (data[i] > data[i + 1]) {
-                        temp = data[i];
-                        data[i] = data[i + 1];
-                        data[i + 1] = temp;
-
-                        minCount++;
-                    }
-                }
-            }
-            else {
+            minCount += swaps;
+            if (swaps == 0) {
                 break;
             }
         }
