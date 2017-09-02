@@ -7,11 +7,10 @@ int main()
     freopen("in.txt","r",stdin);
     freopen("out.txt","w", stdout);
 
-    int n, i, temp, minCount, *data;
+    int n, i, temp, minCount, data[1000];
     bool sorted;
 
     while (scanf("%d", &n) != EOF) {
-        data = (int *) malloc(n * sizeof(int));
 
         for (i = 0; i < n; i++) {
             scanf("%d", &data[i]);
@@ -45,7 +44,6 @@ int main()
         }
 
         printf("Minimum exchange operations : %d\n", minCount);
-        free(data);
     }
 
     return 0;
