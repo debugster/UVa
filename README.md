@@ -2,4 +2,4 @@
 
 
 # UVa Username  : debugster
-# uHunt Link    : http://uhunt.felix-halim.net/u/debugster
+# uHunt Link    : http://uhunt.onlinejudge.org/u/debugster
