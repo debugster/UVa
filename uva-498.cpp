@@ -2,13 +2,32 @@
 
 using namespace std;
 
+/* typedef starts */
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+/* typedef ends */
+
+/* macro starts */
+
+#define PI acos(-1.0)
 #define MAX 10005
 
-vector<long long>allC;
-vector<long long>allX;
-long long P[MAX];
+/* macro ends */
 
-void extractIntegerWords(string str, vector<long long> &v)
+/* function starts */
+
+/// calculates n-th (0-based) Gray Code
+template<typename dataType>
+dataType nthGrayCode(dataType n)
+{
+    return (n ^ (n >> 1));
+}
+
+/// extracts numbers from a string and pushes into vector
+template<typename dataType>
+void extractNumberFromString(string str, vector<dataType> &v)
 {
     stringstream ss;
 
@@ -17,7 +36,7 @@ void extractIntegerWords(string str, vector<long long> &v)
 
     /* Running loop till the end of the stream */
     string temp;
-    int found;
+    dataType found;
     v.clear();
     while (!ss.eof()) {
 
@@ -25,38 +44,38 @@ void extractIntegerWords(string str, vector<long long> &v)
         ss >> temp;
 
         /* Checking the given word is integer or not */
-        if (stringstream(temp) >> found)
+        if (stringstream(temp) >> found) {
             //cout << found << " " << sizeof(found) << "\n";
             v.push_back(found);
+        }
 
         /* To save from space at the end of string */
         temp = "";
     }
-    //cout << "##" << "\n";
 }
+
+/* function ends */
+
+vector<ll>allC;
+vector<ll>allX;
+ll P[MAX];
 
 int main()
 {
     //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 
-    bool _eof = false;
-    char ch;
-    long long c, x, i, j, n;
+    ll c, x, i, j, n;
     string strC, strX;
-    char s1[MAX], s2[MAX];
 
-    while (gets(s1)) {
-        gets(s2);
-
-        strC = s1;
-        strX = s2;
+    while (getline(cin, strC)) {
+        getline(cin, strX);
 
         //cout << strC << "\n" << strX << "\n";
 
 
-        extractIntegerWords(strC, allC);
-        extractIntegerWords(strX, allX);
+        extractNumberFromString(strC, allC);
+        extractNumberFromString(strX, allX);
 
         /*
         for (i = 0; i < allC.size(); i++) {
@@ -69,6 +88,7 @@ int main()
         printf("\n");
         */
 
+        /// Applying Horner's Rule
         n = allC.size() - 1;
         reverse(allC.begin(), allC.end());
         P[n] = allC[n];
@@ -86,8 +106,6 @@ int main()
             }
         }
     }
-
-
 
     return 0;
 }
