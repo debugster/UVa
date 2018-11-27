@@ -2,85 +2,191 @@
 
 using namespace std;
 
-#define child first
-#define parent second
+/* typedef starts */
 
-map<string, string>adj;
-map<string, int>parentCount;
-map<string, string>::iterator itr;
-map<string, int>::iterator ptr;
+typedef long long ll;
+typedef unsigned long long ull;
 
-string findRep(string x); /// find representative
-void makeUnion(string u, string v);
+/* typedef ends */
+
+/* macro starts */
+
+#define PI acos(-1.0)
+
+/* macro ends */
+
+/* function starts */
+
+/// calculates n-th (0-based) Gray Code
+template<typename dataType>
+dataType nthGrayCode(dataType n)
+{
+    return (n ^ (n >> 1));
+}
+
+/// extracts numbers from a string and pushes into vector
+template<typename dataType>
+void extractNumberFromString(string str, vector<dataType> &v)
+{
+    stringstream ss;
+
+    /* Storing the whole string into string stream */
+    ss << str;
+
+    /* Running loop till the end of the stream */
+    string temp;
+    dataType found;
+    v.clear();
+    while (!ss.eof()) {
+
+        /* extracting word by word from stream */
+        ss >> temp;
+
+        /* Checking the given word is integer or not */
+        if (stringstream(temp) >> found) {
+            //cout << found << " " << sizeof(found) << "\n";
+            v.push_back(found);
+        }
+
+        /* To save from space at the end of string */
+        temp = "";
+    }
+}
+
+/* function ends */
+
+class DisjointSet
+{
+    vector<int>parent;
+    vector<int>_rank;
+    int numOfSet; /// counts the number of disjoint sets in the tree
+    vector<int>numOfElement; /// counts the number of member elements in all disjoint subtrees
+    int _max;
+
+public:
+    DisjointSet()
+    {
+        /// empty
+    }
+
+    DisjointSet(int nodes)
+    {
+        setTree(nodes);
+    }
+
+    void setTree(int nodes)
+    {
+        parent.assign(nodes, 0);
+        _rank.assign(nodes, 0);
+        numOfSet = nodes;
+        numOfElement.assign(nodes, 1); /// initially, all disjoint subtrees contains 1 element
+        _max = 1;
+
+        for (int i = 0; i < nodes; i++) {
+            parent[i] = i;
+        }
+    }
+
+    void clearTree()
+    {
+        parent.clear();
+        _rank.clear();
+        numOfSet = 0;
+    }
+
+    int findSet(int i) /// find the set representative of node 'i'
+    {
+        if (parent[i] != i) {
+            parent[i] = findSet(parent[i]);
+        }
+        return parent[i];
+    }
+
+    bool isSameSet(int i, int j)
+    {
+        return findSet(i) == findSet(j);
+    }
+
+    void makeUnion(int i, int j)
+    {
+        if (!isSameSet(i, j)) {
+
+            numOfSet--; /// two trees have been merged into one, so number of trees decreases by one
+
+            int x = findSet(i);
+            int y = findSet(j);
+
+            if (_rank[x] > _rank[y]) { /// ranks keeps the tree short
+                parent[y] = x;
+                numOfElement[x] += numOfElement[y];
+                _max = max(_max, numOfElement[x]);
+            }
+            else {
+                parent[x] = y;
+                numOfElement[y] += numOfElement[x];
+                _max = max(_max, numOfElement[y]);
+            }
+
+            if (_rank[x] == _rank[y]) {
+                _rank[y]++;
+            }
+        }
+    }
+
+    int getNumOfSet()
+    {
+        return numOfSet;
+    }
+
+    int getNumOfElement(int node)
+    {
+        return numOfElement[findSet(node)];
+    }
+
+    int getMax()
+    {
+        return _max;
+    }
+};
 
 int main()
 {
-    freopen("in.txt", "r", stdin);
-    freopen("out.txt", "w", stdout);
+    //freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
 
-    string uS, vS;
-    char uC[50], vC[50];
-    int C, R, i, max;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-    while (scanf("%d%d", &C, &R)) {
-        if (!C && !R) {
+    int test, n, m, i, a, b;
+    DisjointSet tree;
+    string strA, strB;
+    map<string, int>hashTable;
+
+    while (cin >> n >> m) {
+
+        if (!n && !m) {
             break;
         }
 
-        adj.clear();
-        parentCount.clear();
+        tree.clearTree();
+        tree.setTree(n);
+        hashTable.clear();
 
-        for (i = 1; i <= C; i++) {
-            scanf("%s", uC);
-            uS = uC;
-            adj.insert(pair<string, string>(uS, uS));
-            parentCount.insert(pair<string, int>(uS, 0));
+        for (i = 0; i < n; i++) {
+            cin >> strA;
+            hashTable[strA] = i;
         }
 
-        for (i = 1; i <= R; i++) {
-            scanf("%s%s", uC, vC);
-            uS = uC;
-            vS = vC;
-            makeUnion(uS, vS);
+        while (m--) {
+            cin >> strA >> strB;
+            a = hashTable[strA];
+            b = hashTable[strB];
+            tree.makeUnion(a, b);
         }
 
-        for (itr = adj.begin(); itr != adj.end(); itr++) {
-            parentCount.find(itr->parent)->second++;
-        }
-
-        max = 0;
-        for (ptr = parentCount.begin(); ptr != parentCount.end(); ptr++) {
-            if (ptr->second > max) {
-                max = ptr->second;
-            }
-        }
-        printf("%d\n", max);
+        cout << tree.getMax() << "\n";
     }
 
     return 0;
-}
-
-string findRep(string x)
-{
-    if (adj.find(x)->parent == x) {
-        return x;
-    }
-
-    adj.find(x)->parent = findRep(adj.find(x)->parent);
-    return adj.find(x)->parent;
-}
-
-void makeUnion(string u, string v)
-{
-    string uR = findRep(u);
-    string vR = findRep(v);
-
-    if (uR != vR) {
-        adj.find(uR)->parent = vR;
-        for (itr = adj.begin(); itr != adj.end(); itr++) {
-            if (itr->parent == uR) {
-                itr->parent = vR;
-            }
-        }
-    }
 }
