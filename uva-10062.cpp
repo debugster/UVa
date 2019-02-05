@@ -2,19 +2,27 @@
 
 using namespace std;
 
-typedef struct
+struct ASCII
 {
     int value;
     int freq;
-} ASCII;
+
+    bool operator<(const ASCII &op)
+    {
+        if (freq == op.freq) {
+            return value > op.value;
+        }
+        return freq < op.freq;
+    }
+};
 
 int main()
 {
-    freopen("in.txt", "r", stdin);
-    freopen("out.txt", "w", stdout);
+    //freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
 
-    ASCII asc[127], temp;
-    char text[1001];
+    ASCII asc[127];
+    char text[10001];
     int Len, i, j, test = 1;
 
     while (gets(text)) {
@@ -29,22 +37,7 @@ int main()
             asc[(int) text[i]].freq++;
         }
 
-        for (i = 32; i <= 125; i++) {
-            for (j = i + 1; j <= 126; j++) {
-                if (asc[i].freq > asc[j].freq) {
-                    temp = asc[i];
-                    asc[i] = asc[j];
-                    asc[j] = temp;
-                }
-                else if (asc[i].freq == asc[j].freq) {
-                    if (asc[i].value < asc[j].value) {
-                        temp = asc[i];
-                        asc[i] = asc[j];
-                        asc[j] = temp;
-                    }
-                }
-            }
-        }
+        sort(asc + 32, asc + 127);
 
         if (test != 1) {
             printf("\n");
