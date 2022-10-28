@@ -1,21 +1,64 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <unordered_map>
+#include <queue>
+#include <deque>
+#include <stack>
+#include <list>
+#include <bitset>
+#include <string>
+#include <utility>
+#include <iterator>
+#include <fstream>
+#include <sstream>
+#include <numeric>
+#include <functional>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
+#include <cctype>
+#include <climits>
+#include <ctime>
+#include <cassert>
+// #include <ext/pb_ds/assoc_container.hpp>    // PBDS
+// #include <ext/pb_ds/tree_policy.hpp>        // PBDS
 
 using namespace std;
-
-/* something starts */
-/* something ends */
+// using namespace __gnu_pbds;                 // PBDS
 
 /* typedef starts */
 
 typedef long long ll;
 typedef unsigned long long ull;
 typedef pair<int, int> pii;
+// typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> PBDS_INT;               // PBDS for int
+// typedef tree<long long, null_type, less<long long>, rb_tree_tag, tree_order_statistics_node_update> PBDS_LL;    // PBDS for long long
 
 /* typedef ends */
 
 /* macro starts */
 
 #define PI acos(-1.0)
+#define EPS 1e-9
+#define fastIO ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+#define sinD(degree) sin((degree * PI) / 180.0)
+#define cosD(degree) cos((degree * PI) / 180.0)
+#define tanD(degree) tan((degree * PI) / 180.0)
+#define cotD(degree) (1.0 / tanD(degree))
+#define secD(degree) (1.0 / cosD(degree))
+#define cosecD(degree) (1.0 / sinD(degree))
+#define asinD(value) (asin(value) * 180.0) / PI
+#define acosD(value) (acos(value) * 180.0) / PI
+#define atanD(value) (atan(value) * 180.0) / PI
+
+#define value_at_index(x) find_by_order(x)
+#define index_of(x) order_of_key(x)
 #define MAX_NODE 205
 #define MAX_COST 10005
 
@@ -30,8 +73,8 @@ void clearAll();
 
 int main()
 {
-    //freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    freopen("in.txt", "r", stdin);
+    freopen("out.txt", "w", stdout);
 
     ios::sync_with_stdio(false);
     cin.tie(NULL);

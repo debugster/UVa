@@ -1,20 +1,56 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <unordered_map>
+#include <queue>
+#include <deque>
+#include <stack>
+#include <list>
+#include <bitset>
+#include <string>
+#include <utility>
+#include <iterator>
+#include <fstream>
+#include <sstream>
+#include <numeric>
+#include <functional>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
+#include <cctype>
+#include <climits>
+#include <ctime>
+#include <cassert>
 
 using namespace std;
-
-/* something starts */
-/* something ends */
 
 /* typedef starts */
 
 typedef long long ll;
 typedef unsigned long long ull;
+typedef pair<int, int> pii;
 
 /* typedef ends */
 
 /* macro starts */
 
 #define PI acos(-1.0)
+#define EPS 1e-9
+#define fastIO ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+#define sinD(degree) sin((degree * PI) / 180.0)
+#define cosD(degree) cos((degree * PI) / 180.0)
+#define tanD(degree) tan((degree * PI) / 180.0)
+#define cotD(degree) (1.0 / tanD(degree))
+#define secD(degree) (1.0 / cosD(degree))
+#define cosecD(degree) (1.0 / sinD(degree))
+#define asinD(value) (asin(value) * 180.0) / PI
+#define acosD(value) (acos(value) * 180.0) / PI
+#define atanD(value) (atan(value) * 180.0) / PI
 #define MAX_NODE 105
 
 /* macro ends */
